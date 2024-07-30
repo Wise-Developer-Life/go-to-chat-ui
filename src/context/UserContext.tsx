@@ -51,6 +51,11 @@ export const UserProvider = ({children}: { children: React.ReactNode }) => {
                 })
             })
             .catch((error) => {
+                if (error.response.status !== 401) {
+                    setUser(null);
+                    return;
+                }
+
                 refreshToken()
                     .then(()=>{
                         console.log('refresh token success');

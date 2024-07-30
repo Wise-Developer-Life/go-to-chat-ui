@@ -24,7 +24,7 @@ const MainLayout: React.FC = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }}>
-                <div style={{fontSize: '24px'}}>
+                <div style={{fontSize: '24px', cursor: 'pointer'}} onClick={() => navigate('/')}>
                     {APP_NAME}
                 </div>
 
