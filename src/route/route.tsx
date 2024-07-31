@@ -15,10 +15,6 @@ const pageRouteMapping =  [
     {
         path: "register",
         element: <RegistrationPage/>,
-    },
-    {
-        path: "chat",
-        element: <ChatRoomPage/>,
     }
 ];
 

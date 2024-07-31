@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {loginApi, refreshTokenApi} from "../api/authApi";
+import {loginApi} from "../api/authApi";
 import {getUserApi} from "../api/userApi";
+import authStore from "../store/auth_store";
 
 interface User {
     email: string;
@@ -22,18 +23,9 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({children}: { children: React.ReactNode }) => {
-    const accessTokenInStore = localStorage.getItem('access_token') ;
+    const accessTokenInStore = authStore.getAccessToken();
     const [accessToken, setAccessToken] = useState<string | null>(accessTokenInStore);
     const [user, setUser] = useState<User | null>(null);
-
-
-    const refreshToken = async () => {
-        const {data: authData} = await refreshTokenApi();
-        if (authData['access_token']) {
-            localStorage.setItem('access_token', authData['access_token']);
-            setAccessToken(authData['access_token']);
-        }
-    }
 
     useEffect(() => {
         if (!accessToken) {
@@ -51,18 +43,8 @@ export const UserProvider = ({children}: { children: React.ReactNode }) => {
                 })
             })
             .catch((error) => {
-                if (error.response.status !== 401) {
-                    setUser(null);
-                    return;
-                }
-
-                refreshToken()
-                    .then(()=>{
-                        console.log('refresh token success');
-                    })
-                    .catch(() => {
-                        setUser(null);
-                    });
+                console.log(error);
+                setUser(null)
             });
     }, [accessToken]);
 
@@ -70,16 +52,15 @@ export const UserProvider = ({children}: { children: React.ReactNode }) => {
         const {data: authData} = await loginApi(request.email, request.password);
 
         if (authData) {
-            localStorage.setItem('access_token', authData['access_token']);
-            localStorage.setItem('refresh_token', authData['refresh_token']);
+            authStore.setAccessToken(authData['access_token']);
+            authStore.setRefreshToken(authData['refresh_token']);
             setAccessToken(authData['access_token']);
         }
     };
 
     // TODO: remember call logout api
     const logout = async () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        authStore.clearTokens();
         setAccessToken(null);
     }
 

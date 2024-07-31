@@ -11,6 +11,6 @@ export const registerApi = async (request: RegisterApiRequest) => {
 }
 
 export const getUserApi = async () => {
-    const response = await backendApiBase(true).get('/user');
+    const response = await backendApiBase(true).get(`/user`);
     return response.data;
 };

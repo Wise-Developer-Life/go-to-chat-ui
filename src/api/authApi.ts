@@ -9,12 +9,3 @@ export const loginApi = async (email: string, password: string) => {
 
     return response.data;
 }
-
-export const refreshTokenApi = async () => {
-    const response = await backendApi().post('/auth/refresh', {}, {
-        headers: {
-            'Authorization': `${localStorage.getItem('refresh_token')}`
-        }
-    });
-    return response.data;
-};
