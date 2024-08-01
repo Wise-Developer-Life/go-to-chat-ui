@@ -9,3 +9,8 @@ export const loginApi = async (email: string, password: string) => {
 
     return response.data;
 }
+
+export const logoutApi = async () => {
+    const response = await backendApi(true).post('/auth/logout');
+    return response.data;
+}
