@@ -36,10 +36,9 @@ export const UserProvider = ({children}: { children: React.ReactNode }) => {
         getUserApi()
             .then(({data: userData}) => {
                 setUser({
-                    email: userData.email,
-                    name: userData.name,
-                    // TODO: replace test url to real
-                    avatarUrl: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    email: userData['email'],
+                    name: userData['name'],
+                    avatarUrl: userData['profile_url']
                 })
             })
             .catch((error) => {
