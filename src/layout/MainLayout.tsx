@@ -1,7 +1,9 @@
 import React, {MouseEventHandler} from 'react';
-import {Layout, Button, Avatar, Col, Row} from 'antd';
+import {Avatar, Button, Col, Dropdown, Layout, Row} from 'antd';
 import {Outlet, useNavigate} from 'react-router-dom';
 import {useUser} from "../context/UserContext";
+import {ItemType} from "antd/es/menu/interface";
+import {MenuItemType} from "antd/lib/menu/interface";
 
 const { Header, Content, Footer } = Layout;
 
@@ -9,12 +11,24 @@ const APP_NAME = process.env.REACT_APP_NAME || 'React App';
 
 const MainLayout: React.FC = () => {
     const navigate = useNavigate();
-    const {user} = useUser();
+    const {user, logout} = useUser();
     const isLoggedIn = user !== null;
 
-    const handleLogin: MouseEventHandler = (event) => {
+    const handleLogin: MouseEventHandler = () => {
         navigate('/login')
     }
+
+    const items: ItemType<MenuItemType>[] = [
+        {
+            key: '1',
+            label: 'Logout',
+            onClick: () => {
+                logout().then(() => {
+                    navigate('/');
+                });
+            }
+        },
+    ];
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -35,7 +49,9 @@ const MainLayout: React.FC = () => {
                                 <span>{`Hello ${user?.name}`}</span>
                             </Col>
                             <Col>
+                                <Dropdown menu={{items}}>
                                 <Avatar src={user?.avatarUrl} style={{marginLeft: '8px', border: '2px solid #1890ff'}}/>
+                                </Dropdown>
                             </Col>
                         </>
                     ) : (

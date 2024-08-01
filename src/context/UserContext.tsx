@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {loginApi} from "../api/authApi";
+import {loginApi, logoutApi} from "../api/authApi";
 import {getUserApi} from "../api/userApi";
 import authStore from "../store/auth_store";
 
@@ -58,10 +58,16 @@ export const UserProvider = ({children}: { children: React.ReactNode }) => {
         }
     };
 
-    // TODO: remember call logout api
     const logout = async () => {
-        authStore.clearTokens();
-        setAccessToken(null);
+        logoutApi()
+            .then(() => {
+                console.log('logout success at backend')
+                authStore.clearTokens();
+                setAccessToken(null);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     return (
