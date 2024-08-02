@@ -1,7 +1,7 @@
 import HomePage from "../page/HomePage";
 import LoginPage from "../page/LoginPage";
 import RegistrationPage from "../page/RegistrationPage";
-import ChatRoomPage from "../page/ChatRoomPage";
+import ProfilePage from "../page/ProfilePage";
 
 const pageRouteMapping =  [
     {
@@ -15,7 +15,11 @@ const pageRouteMapping =  [
     {
         path: "register",
         element: <RegistrationPage/>,
-    }
+    },
+    {
+        path: "profile",
+        element: <ProfilePage/>,
+    },
 ];
 
 export default pageRouteMapping;

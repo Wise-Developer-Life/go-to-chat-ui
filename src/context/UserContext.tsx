@@ -4,6 +4,7 @@ import {getUserApi} from "../api/userApi";
 import authStore from "../store/auth_store";
 
 interface User {
+    id: string;
     email: string;
     name: string;
     avatarUrl: string;
@@ -36,6 +37,7 @@ export const UserProvider = ({children}: { children: React.ReactNode }) => {
         getUserApi()
             .then(({data: userData}) => {
                 setUser({
+                    id: userData['id'],
                     email: userData['email'],
                     name: userData['name'],
                     avatarUrl: userData['profile_url']
