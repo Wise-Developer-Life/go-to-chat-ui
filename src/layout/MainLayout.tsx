@@ -20,8 +20,13 @@ const MainLayout: React.FC = () => {
 
     const items: ItemType<MenuItemType>[] = [
         {
-            key: '1',
-            label: 'Logout',
+            key: 'profile',
+            label: 'Profile',
+            onClick: () => navigate('/profile'),
+        },
+        {
+            key: 'logout',
+            label: 'Log out',
             onClick: () => {
                 logout().then(() => {
                     navigate('/');

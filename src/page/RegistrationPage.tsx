@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, Input} from 'antd';
 import {registerApi, uploadUserProfileImage} from "../api/userApi";
 import {useNavigate} from "react-router-dom";
-import {EditUserProfilePicture} from "../component/EditUserProfilePicture";
+import UserProfilePicture from "../component/UserProfilePicture";
 
 const RegistrationPage: React.FC = () => {
     const [form] = Form.useForm();
@@ -53,7 +53,7 @@ const RegistrationPage: React.FC = () => {
                 scrollToFirstError
                 style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
             >
-                <EditUserProfilePicture
+                <UserProfilePicture
                     profilePic={profilePic}
                     onEdit={handleEditProfilePic}
                 />
