@@ -39,7 +39,7 @@ const MatchPage: React.FC = () => {
             setSender(user);
             setReceiver({
                 email: matchedUserRes['email'],
-                avatarUrl: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                avatarUrl: matchedUserRes['profile_url'],
             });
         } else if (event === 'message') {
             const messageData = data as ChatMessage;

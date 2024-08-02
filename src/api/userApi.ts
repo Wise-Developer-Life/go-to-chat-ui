@@ -14,3 +14,17 @@ export const getUserApi = async () => {
     const response = await backendApiBase(true).get(`/user`);
     return response.data;
 };
+
+export const uploadUserProfileImage = async (userId: string, profilePicFile: File) => {
+    const response = await backendApiBase(false).post(
+        `/user/${userId}/profile-image`,
+        {
+            'file': profilePicFile,
+        },
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    return response.data;
+}
